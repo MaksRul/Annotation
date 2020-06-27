@@ -1,0 +1,40 @@
+public class Something {
+    @Save int namber = 23;
+    @Save long l = 23L;
+    @Save String text = "Hello World";
+
+    public Something(int namber, long l, String text) {
+        this.namber = namber;
+        this.l = l;
+        this.text = text;
+    }
+
+    public Something() {
+        super();
+    }
+
+    public int getNamber() {
+        return namber;
+    }
+
+    public void setNamber(int namber) {
+        this.namber = namber;
+    }
+
+    public long getL() {
+        return l;
+    }
+
+    public void setL(long l) {
+        this.l = l;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
+
+}
