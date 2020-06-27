@@ -1,0 +1,12 @@
+public class Main {
+    public static void main(String[] args) {
+        Something something = new Something();
+        String path = " C:\\Users\\Максим\\Desktop\\1.txt";
+        Serialization serialization = new Serialization();
+        Desialization desialization = new Desialization();
+        serialization.serialize(something,path);
+        desialization.desializat(path,serialization);
+        System.out.println(desialization);
+
+    }
+}
