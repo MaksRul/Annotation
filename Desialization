@@ -1,0 +1,51 @@
+  import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
+
+public class Desialization {
+    public Desialization() {
+        super();
+    }
+
+    public String desializat(String path, Object o) {
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(path))) {
+            StringBuilder sb = new StringBuilder();
+            String text = ois.readObject().toString();
+            String[] fields = text.split(";");
+            for (String field : fields) {
+                String[] nameAndValue = field.split(" = ");
+                String name = nameAndValue[0];
+                String value = nameAndValue[1];
+                Field names = o.getClass().getDeclaredField(name);
+                if (Modifier.isPrivate(names.getModifiers())) {
+                    names.setAccessible(true);
+                    sb.append(name + " = ");
+                }
+                if (names.getType() == int.class) {
+                    names.setInt(o, Integer.parseInt(value));
+
+                }
+                if (names.getType() == long.class) {
+                    names.setLong(o, Long.parseLong(value));
+
+                }
+                if (names.getType() == String.class) {
+                    names.set(o, value);
+                }
+                sb.append(value).append(";");
+            }
+            return sb.toString();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+}
